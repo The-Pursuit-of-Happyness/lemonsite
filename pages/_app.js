@@ -22,9 +22,11 @@ class MyApp extends App{
     render(){
         const {Component,pageProps,store} = this.props
         return <Container>
-            <Provider store ={store}>
-                <Component {...pageProps}/>
-            </Provider>
+                <Provider store={store}>
+                    <Layout>
+                        <Component {...pageProps}/>
+                    </Layout>
+                </Provider>
         </Container>
     }
 }
