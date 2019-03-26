@@ -1,9 +1,11 @@
-const reducer = (state = {foo: ''}, action) => {
+const reducer = (state , action) => {
     switch (action.type) {
-        case 'FOO':
-            return {...state, foo: action.payload};
+        case 'PLUS':
+            return { ...state,plus:action.plus }
+        case 'CHANGE':
+            return {...state,showColor:action.showColor };
         default:
-            return state
+            return true
     }
 };
 
