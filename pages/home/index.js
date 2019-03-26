@@ -7,7 +7,7 @@ const Home = () => {
         <div>
             <p className="mylink">测试文字</p>
             <Link href={"/"}>
-                <a >主页</a>
+                <a>主页</a>
             </Link>
             <Link as={`/item/123`} href={"/"}>
                 <a>item</a>
