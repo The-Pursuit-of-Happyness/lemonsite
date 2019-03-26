@@ -28,12 +28,22 @@ const Index = ({ stars }) => <div className="example">
         <meta charSet='utf-8' />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-        <Link href="/home">
-            <a>点我跳转home页面</a>
-        </Link>
-        <Link href="/about">
-            <a>点我跳转about页面</a>
-        </Link>
+        <div>
+            <Link href="/home">
+                <a>点我跳转home页面</a>
+            </Link>
+        </div>
+        <div>
+            <Link href="/about">
+                <a>点我跳转about页面</a>
+            </Link>
+        </div>
+        <div>
+            <Link href="/reduxDemo">
+                <a>点我跳转reduxDemo页面</a>
+            </Link>
+        </div>
+
          <Button type="primary">Primary</Button>
          <p className={'mytest'}>我的测试文字</p>
         <ul>
