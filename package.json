@@ -26,6 +26,7 @@
     "mockjs": "^1.0.1-beta3",
     "mongodb": "^3.2.2",
     "next": "7.0.2",
+    "next-redux-wrapper": "^3.0.0-alpha.2",
     "nprogress": "^0.2.0",
     "qs": "^6.7.0",
     "react": "^16.8.4",
