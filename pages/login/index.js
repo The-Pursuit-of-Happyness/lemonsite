@@ -1,8 +1,8 @@
 import React,{Component,Fragment} from 'react';
-import { connect } from "react-redux";
+import Link from 'next/link';
 import {Input,Button} from 'antd';
 import './index.less'
-import { userLogin } from '../../store/actions';
+import WithDva from '../../utils/store';
 
 class Login extends Component{
     constructor(){
@@ -20,32 +20,52 @@ class Login extends Component{
         const info = event.target.value;
         this.setState({password:info});
     }
-    submit = async ({ req })=>{ 
-        const { dispatch } = this.props
-        userLogin(dispatch, {name:this.state.userName,password:this.state.password});
+    submit =()=>{ 
+        this.props.dispatch({type:"user/userLogin",payload:{
+            name:this.state.userName,password:this.state.password
+        }})
     }
-    static getInitialProps({ store, isServer, pathname, query }) {
-        store.dispatch({ type: "FOO", payload: "foo" }); // component will be able to read from store's state when rendered
-       return { custom: "custom" }; // you can pass some custom props to component from here
-      }
-    render(){
-        return <Fragment>
-        <label>姓名：</label>
-        <Input onChange={this.inputName}></Input>
-        <label>密码：</label>
-        <Input type="password" onChange={this.inputPwd}></Input>
-        <Button onClick={this.submit}>提交</Button>
-        <div>Prop from Redux {this.props.foo}</div>
-        <div>Prop from getInitialProps {this.props.custom}</div>
 
-        <p>{this.props.userInfo }</p>
+    // static async getInitialProps(props) {
+    //     // first time run in server side
+    //     // other times run in client side ( client side init with default props
+    //     // console.log('get init props');
+    //     const {
+    //       pathname, query, isServer, store,
+    //     } = props;
+    //     // dispatch effects to fetch data here
+    //     return {
+    //       // dont use store as property name, it will confilct with initial store
+    //       pathname, query, isServer, dvaStore: store,
+    //     };
+    //   }
+    render(){
+        const {user}  = this.props;
+        const {userInfo} = user;
+
+        return <Fragment>
+            <label>姓名：</label>
+            <Input onChange={this.inputName}></Input>
+            <label>密码：</label>
+            <Input type="password" onChange={this.inputPwd}></Input>
+            <Button onClick={this.submit}>提交</Button>
+
+            <p>{userInfo&&userInfo.name? userInfo.name:'' }</p>
+            <p>{userInfo&&userInfo.age? userInfo.age:'' }</p>
+
+             <div>
+            <Link href="/about">
+                <a>点我跳转About页面</a>
+            </Link>
+        </div>
         </Fragment>
     }
 }
 
-const mapStateToProps = state => {
-    const {userInfo}  = state;
-    return {userInfo};
-}
-
-export default connect(mapStateToProps)(Login);
+export default WithDva(
+    (state)=>{
+        return {
+            user:state.user
+        };
+    }
+)(Login);

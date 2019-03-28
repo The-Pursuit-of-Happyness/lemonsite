@@ -13,3 +13,9 @@ export async function login(params) {
     }
   })
 }
+
+export async function getInfo() {
+  return request('/api/user/about', {
+    method: 'GET',
+  })
+}

@@ -1,9 +1,7 @@
-import React from 'react'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
+import React from 'react';
 import App,{Container}from 'next/app'
-import withRedux from 'next-redux-wrapper'
-import {initializeStore} from '../store/store'
+import Router from 'next/router'
+import Nprogress from 'nprogress'
 
 class Layout extends React.Component{
     render(){
@@ -14,21 +12,25 @@ class Layout extends React.Component{
     }
 }
 
-class MyApp extends App{
+class Page extends App {
     static async getInitialProps({Component,ctx}){
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) :{}
         return {pageProps};
     }
-    render(){
-        const {Component,pageProps,store} = this.props
-        return <Container>
-                <Provider store={store}>
-                    <Layout>
-                        <Component {...pageProps}/>
-                    </Layout>
-                </Provider>
-        </Container>
-    }
-}
 
-export default withRedux(initializeStore)(MyApp);
+  render() {
+      // 页面顶部进度条
+      Router.onRouteChangeStart = (url) =>{
+        Nprogress.start();
+    }
+    Router.onRouteChangeComplete = ()=>Nprogress.done()
+    Router.onRouteChangeError = ()=>NProgress.done()
+    const {Component,pageProps} = this.props
+    return <Container>      
+        <Layout >
+            <Component {...pageProps}/>
+        </Layout> 
+    </Container>
+  }
+}
+export default Page;

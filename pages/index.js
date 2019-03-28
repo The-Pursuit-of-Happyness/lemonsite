@@ -1,10 +1,14 @@
-
 import Link from 'next/link';
 import { Button } from 'antd';
 import Test from '../components/Layout';
 import 'isomorphic-unfetch';
 import Head from 'next/head'
 import './style.less'
+
+// import dva from 'dva';
+// import './index.css';
+// import createHistory from 'history/createBrowserHistory'
+import { createMemoryHistory } from 'history';
 
 const PostLink = (props) => (
     <div>
@@ -34,6 +38,11 @@ const Index = ({ stars }) => <div className="example">
             </Link>
         </div>
         <div>
+            <Link href="/login">
+                <a>点我跳转login页面</a>
+            </Link>
+        </div>
+        <div>
             <Link href="/about">
                 <a>点我跳转about页面</a>
             </Link>
@@ -52,7 +61,7 @@ const Index = ({ stars }) => <div className="example">
         <img src={'static/sleep.png'}/>
         <div>我是异步请求的结果：{stars}</div>
     </div>
-    
+
 
 Index.getInitialProps = async ({ req }) => {
     const res = await fetch('https://api.github.com/repos/zeit/next.js')
