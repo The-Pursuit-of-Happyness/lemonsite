@@ -1,9 +1,17 @@
-const Mock = require('mockjs')
-var express = require("express")
-var router = express.Router();
+const Mock = require('mockjs');
+const express = require("express");
+const router = express.Router();
+const handleData = require('./userDB');
 
 router.use("/login", function(req, res) {
-  console.log(req.body);
+  console.log('body:',req.body);
+  const param = {
+    telephone:'123456'
+  }
+  // 加入到数据库里面
+  // handleData((collection) =>{
+  //   collection.insert(param)
+  // });
   //调用mock方法模拟数据
   var data = Mock.mock({
     'Data': {
