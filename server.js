@@ -19,7 +19,7 @@ app.prepare().then(() => {
 
   const proxyTable = {
     '/api': {
-      target: 'http://localhost:3001/',
+      target: 'http://localhost:7001/',
       // secure: true,
       // pathRewrite: { '^/api': '' },
       changeOrigin: true
