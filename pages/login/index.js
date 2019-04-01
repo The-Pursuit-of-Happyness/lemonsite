@@ -11,16 +11,19 @@ class Login extends Component{
             userName:'张三',
             password:'123456',
         }
-    }
+    };
+
     inputName = event=>{
         const info = event.target.value;
         this.setState({userName:info});
-    }
+    };
+
     inputPwd = event=>{
         const info = event.target.value;
         this.setState({password:info});
-    }
-    submit =()=>{ 
+    };
+
+    submit =()=>{
         this.props.dispatch({type:"user/userLogin",payload:{
             name:this.state.userName,password:this.state.password
         }})

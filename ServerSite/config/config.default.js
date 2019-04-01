@@ -31,10 +31,9 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
 
-  // config.mongoose = {
-  //   url: 'mongodb://127.0.0.1:27017/admin',
-  //       options: {},
-  // };
+  config.mongoose = {
+    url: 'mongodb://127.0.0.1:27017/admin',
+  };
 
   // add your user config here
   const userConfig = {
