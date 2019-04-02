@@ -5,9 +5,11 @@ const Controller = require('egg').Controller;
 class HomeController extends Controller {
   async index() {
       // const param = this.ctx.params;// 获取路由上的参数
-      // const newLink = await this.ctx.model.User.create({
-      //     userName:'guofen'
-      // });                          //添加到数据库
+      const newLink = await this.ctx.model.User.create({
+          userName:'guofen'
+      });                          //添加到数据库
+
+
      // create find remove update
     this.ctx.body = {
       Data: {

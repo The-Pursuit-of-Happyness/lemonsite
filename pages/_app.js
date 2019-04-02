@@ -5,8 +5,8 @@ import Nprogress from 'nprogress'
 
 class Layout extends React.Component{
     render(){
-        const {children} = this.props;
-        return <div className='layout'>
+        const {children,className} = this.props;
+        return <div className={className}>
             {children}
         </div>
     }
@@ -26,10 +26,20 @@ class Page extends App {
     Router.onRouteChangeComplete = ()=>Nprogress.done()
     Router.onRouteChangeError = ()=>NProgress.done()
     const {Component,pageProps} = this.props
-    return <Container>      
-        <Layout >
+    return <Container >
+        <Layout  className="container">
             <Component {...pageProps}/>
-        </Layout> 
+        </Layout>
+        <style jsx global>{`
+            #__next,.container{
+                height: 100%;
+            }
+            .container{
+                display: flex;
+                flex-direction: column;
+            }
+        `}</style>
+
     </Container>
   }
 }
