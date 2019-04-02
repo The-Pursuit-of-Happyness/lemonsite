@@ -3,12 +3,15 @@ import { Button } from 'antd';
 import Test from '../components/Layout';
 import 'isomorphic-unfetch';
 import Head from 'next/head'
-import './style.less'
+import './style.less';
+import Menu from '../components/Menu'
+
 
 // import dva from 'dva';
 // import './index.css';
 // import createHistory from 'history/createBrowserHistory'
 import { createMemoryHistory } from 'history';
+import React from "react";
 
 const PostLink = (props) => (
     <div>
@@ -26,7 +29,7 @@ const PostLink = (props) => (
         </style>
     </div>
 );
-const Index = ({ stars }) => <div className="example">
+const Index = ({ stars }) => <div style={{height:'100%'}}>
     <Head>
         <title>My page title</title>
         <meta charSet='utf-8' />
@@ -53,8 +56,8 @@ const Index = ({ stars }) => <div className="example">
             </Link>
         </div>
 
-         <Button type="primary">Primary</Button>
-         <p className={'mytest'}>我的测试文字</p>
+        <Button type="primary">Primary</Button>
+        <p className={'mytest'}>我的测试文字</p>
         <ul>
             <PostLink title={"我是路由伪装"} id={'123456'}/>
         </ul>

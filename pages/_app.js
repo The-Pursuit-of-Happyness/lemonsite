@@ -2,6 +2,7 @@ import React from 'react';
 import App,{Container}from 'next/app'
 import Router from 'next/router'
 import Nprogress from 'nprogress'
+import Menu from '../components/Menu'
 
 class Layout extends React.Component{
     render(){
@@ -28,7 +29,9 @@ class Page extends App {
     const {Component,pageProps} = this.props
     return <Container >
         <Layout  className="container">
-            <Component {...pageProps}/>
+            <Menu>
+                <Component {...pageProps}/>
+            </Menu>
         </Layout>
         <style jsx global>{`
             #__next,.container{

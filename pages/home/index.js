@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Carousel } from 'antd';
 import "./index.less";
 import React from 'react';
 

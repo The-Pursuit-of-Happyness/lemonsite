@@ -1,0 +1,40 @@
+.page{
+  display: flex;
+  justify-content: center;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+.menuBox{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background: #fff;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  .menus{
+    position: fixed;
+    top: 0px;
+  }
+}
+
+.contentBox{
+   margin-top: 50px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+@media screen and(max-width: 990px){
+  .contentBox,.menus{
+    width:100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and(min-width: 990px){
+  .contentBox,.menus{
+    width:80%;
+    max-width: 100%;
+  }
+}
