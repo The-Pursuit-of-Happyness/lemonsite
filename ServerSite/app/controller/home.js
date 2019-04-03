@@ -1,12 +1,14 @@
 'use strict';
-
+const md5 = require('md5');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
-  async index() {
+  async login() {
       // const param = this.ctx.params;// 获取路由上的参数
+      const { name, password } = this.ctx.request.body;
       const newLink = await this.ctx.model.User.create({
-          userName:'guofen'
+          userName:name,
+          password,
       });                          //添加到数据库
 
 
@@ -14,7 +16,7 @@ class HomeController extends Controller {
     this.ctx.body = {
       Data: {
         id: 'ls0001',
-        name: 'guofen',
+        name: name,
         level: 2,
         token: '832423742834238940280800123',
         telphone: '',
@@ -25,7 +27,8 @@ class HomeController extends Controller {
     };
   }
 
-  async home() {
+  async about() {
+
     this.ctx.body = {
       Data: {
         version: '1.0.1',
