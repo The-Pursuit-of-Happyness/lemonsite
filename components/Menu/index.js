@@ -18,12 +18,10 @@ class Menus extends React.Component{
         this.setState({
             currentKey: e.key
         })
-    }
+    };
 
     render(){
         const { children } = this.props;
-        console.log('Menus:',this.props);
-
         return <div className={'page'}>
             <div className={'menuBox'}>
             <Menu onClick={this.handleClick} selectedKeys={[this.state.currentKey]} mode={'horizontal'} className={'menus'}>
@@ -45,7 +43,7 @@ class Menus extends React.Component{
                 <MenuItem key={'about'}>
                     <Link href={'/about'}><a>关于我们</a></Link>
                 </MenuItem>
-                <MenuItem key={'log'}>
+                <MenuItem key={'updateLog'}>
                     <Link href={'/updateLog'}><a>更新日志</a></Link>
                 </MenuItem>
             </Menu>

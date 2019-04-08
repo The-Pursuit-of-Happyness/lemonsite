@@ -22,18 +22,17 @@ class Page extends App {
   render() {
       // 页面顶部进度条
       Router.onRouteChangeStart = (url) =>{
-        Nprogress.start();
-    }
-    Router.onRouteChangeComplete = ()=>Nprogress.done()
-    Router.onRouteChangeError = ()=>NProgress.done()
+        window.location.href=url;
+    };
+    Router.onRouteChangeComplete = ()=>Nprogress.done();
+    Router.onRouteChangeError = ()=>NProgress.done();
     const {Component,pageProps, router: { pathname }} = this.props;
-      console.log('pathname:',pathname);
     return <Container >
         {
-            pathname === '/home' ? <Component {...pageProps}/> : <Layout  className="container">
-            <Menu>
-            <Component {...pageProps}/>
-            </Menu>
+            pathname === '/home' ? <Component {...pageProps}/> : <Layout  className="container" >
+                <Menu>
+                    <Component {...pageProps}/>
+                </Menu>
             </Layout>
         }
 

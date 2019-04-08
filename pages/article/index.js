@@ -33,13 +33,13 @@ const Article = () => (
             </Link>
         </div>
         <div>
-            <Link href="/about">
-                <a>点我跳转about页面</a>
+            <Link href="/updateLog">
+                <a>点我跳转updateLog页面</a>
             </Link>
         </div>
         <div>
-            <Link href="/reduxDemo">
-                <a>点我跳转reduxDemo页面</a>
+            <Link href="/leetcode">
+                <a>点我跳转leetcode页面</a>
             </Link>
         </div>
         <ul>
