@@ -1,13 +1,15 @@
 import React from 'react';
+import Link from 'next/link';
 import { Menu } from 'antd';
+import { withRouter } from 'next/router';
 import './index.less'
 
 const MenuItem = Menu.Item;
-export default class Menus extends React.Component{
+class Menus extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            currentKey:'home'
+            currentKey:this.props.router.pathname.slice(1)
         };
     }
 
@@ -20,26 +22,31 @@ export default class Menus extends React.Component{
 
     render(){
         const { children } = this.props;
+        console.log('Menus:',this.props);
+
         return <div className={'page'}>
             <div className={'menuBox'}>
             <Menu onClick={this.handleClick} selectedKeys={[this.state.currentKey]} mode={'horizontal'} className={'menus'}>
                 <MenuItem key={'home'}>
-                    网站首页
+                    <Link href={'/home'}><a>网站首页</a></Link>
                 </MenuItem>
-                <MenuItem key={'blok'}>
-                    文章列表
+                <MenuItem key={'article'}>
+                    <Link href={'/article'}><a>文章列表</a></Link>
                 </MenuItem>
                 <MenuItem key={'life'}>
-                    生活记录
+                    <Link href={'/life'}><a>生活记录</a></Link>
+                </MenuItem>
+                <MenuItem key={'leetcode'}>
+                    <Link href={'/leetcode'}><a>leetcode</a></Link>
                 </MenuItem>
                 <MenuItem key={'resource'}>
-                    在线资源
+                    <Link href={'/resource'}><a>在线资源</a></Link>
                 </MenuItem>
                 <MenuItem key={'about'}>
-                    关于我们
+                    <Link href={'/about'}><a>关于我们</a></Link>
                 </MenuItem>
                 <MenuItem key={'log'}>
-                    更新日志
+                    <Link href={'/updateLog'}><a>更新日志</a></Link>
                 </MenuItem>
             </Menu>
             </div>
@@ -50,3 +57,5 @@ export default class Menus extends React.Component{
 
     }
 }
+
+export default withRouter(Menus)

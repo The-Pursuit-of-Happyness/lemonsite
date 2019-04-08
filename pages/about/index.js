@@ -3,6 +3,7 @@ import {Tag} from "antd";
 import WithDva from '../../utils/store';
 
 import './index.less';
+import Link from "../article";
 
 class About extends Component {
   constructor(props) {
@@ -23,12 +24,12 @@ class About extends Component {
             store.dispatch({
                 type:'user/getAppInfo',
                 payload:''
-            })  
+            })
             return {
               // dont use store as property name, it will confilct with initial store
               pathname, query, isServer, dvaStore: store,
             };
-            
+
       }
 
   render(){
@@ -37,6 +38,10 @@ class About extends Component {
       const mylist = ["不错哦","哈哈哈","额鹅鹅鹅","猪猪猪猪","嗯嗯"];
       return (
           <div>
+              <h1>关于我们页面</h1>
+                  {/*<Link href="/home">*/}
+                      {/*<a>点我跳转home页面</a>*/}
+              {/*</Link>*/}
               {
                   mylist.map(item=><Tag key={item}>{item}</Tag>)
               }

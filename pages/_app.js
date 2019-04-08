@@ -26,13 +26,17 @@ class Page extends App {
     }
     Router.onRouteChangeComplete = ()=>Nprogress.done()
     Router.onRouteChangeError = ()=>NProgress.done()
-    const {Component,pageProps} = this.props
+    const {Component,pageProps, router: { pathname }} = this.props;
+      console.log('pathname:',pathname);
     return <Container >
-        <Layout  className="container">
+        {
+            pathname === '/home' ? <Component {...pageProps}/> : <Layout  className="container">
             <Menu>
-                <Component {...pageProps}/>
+            <Component {...pageProps}/>
             </Menu>
-        </Layout>
+            </Layout>
+        }
+
         <style jsx global>{`
             #__next,.container{
                 height: 100%;

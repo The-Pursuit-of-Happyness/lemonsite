@@ -1,5 +1,4 @@
 'use strict';
-const md5 = require('md5');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
@@ -11,8 +10,6 @@ class HomeController extends Controller {
           password,
       });                          //添加到数据库
 
-
-     // create find remove update
     this.ctx.body = {
       Data: {
         id: 'ls0001',

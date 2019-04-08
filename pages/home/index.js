@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import "./index.less";
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const imgArr = ['static/picture1.jpg','static/picture2.jpg','static/picture3.jpg','static/picture4.jpg'];
 let timer;
@@ -25,14 +25,14 @@ export default class Home extends React.Component{
 
     render(){
         const list = [{
-            title:'技术文章(blog)',
-            id:'blog'
+            title:'技术文章(article)',
+            id:'article'
         },{
-            title:'生活感想(life)',
+            title:'生活记录(life)',
             id:'life'
         },{
-            title:'文档中心（xg）',
-            id:'xg'
+            title:'在线资源（resource）',
+            id:'resource'
         }];
         const { indexBg } = this.state;
         return <div className={'homeContent'} style={{backgroundImage:`url(${imgArr[indexBg]})`}}>
@@ -42,10 +42,10 @@ export default class Home extends React.Component{
                 <div className={'contentList'}>
                     {
                         list.map((l,index) => <div key={`${index}`} className={'item'}>
-                            <Link href={'/'}><a className={'linkText'}>》{l.title}</a></Link></div>)
+                            <Link href={`/${l.id}`}><a className={'linkText'}>》{l.title}</a></Link></div>)
                     }
                 </div>
-                <div className={'tipText'}><Link href={'/'}><a className={'linkText'}>connect | http:www.baidu.com </a></Link></div>
+                <div className={'tipText'}><Link href={'/'}><a className={'linkText'}>connect | http://www.baidu.com </a></Link></div>
             </div>
         </div>
     }
