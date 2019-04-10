@@ -45,7 +45,7 @@ const Article = () => (
         <ul>
             <PostLink title={"我是路由伪装"} id={'123456'}/>
         </ul>
-        <img src={'static/sleep.png'}/>
+        <img src={'/static/sleep.png'}/>
     </div>
 );
 
