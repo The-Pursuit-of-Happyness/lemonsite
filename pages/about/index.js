@@ -39,9 +39,7 @@ class About extends Component {
       return (
           <div>
               <h1>关于我们页面</h1>
-                  {/*<Link href="/home">*/}
-                      {/*<a>点我跳转home页面</a>*/}
-              {/*</Link>*/}
+              <h2>bag pig</h2>
               {
                   mylist.map(item=><Tag key={item}>{item}</Tag>)
               }

@@ -29,7 +29,7 @@ class Page extends App {
     const {Component,pageProps, router: { pathname }} = this.props;
     return <Container >
         {
-            pathname === '/home' ? <Component {...pageProps}/> : <Layout  className="container" >
+            pathname === '/home' || pathname === '/' ? <Component {...pageProps}/> : <Layout  className="container" >
                 <Menu>
                     <Component {...pageProps}/>
                 </Menu>

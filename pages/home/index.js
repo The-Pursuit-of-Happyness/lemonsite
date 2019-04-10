@@ -2,7 +2,7 @@ import Link from 'next/link';
 import "./index.less";
 import React, { Fragment } from 'react';
 
-const imgArr = ['static/picture1.jpg','static/picture2.jpg','static/picture3.jpg','static/picture4.jpg'];
+const imgArr = ['/static/picture1.jpg','/static/picture2.jpg','/static/picture3.jpg','/static/picture4.jpg'];
 let timer;
 export default class Home extends React.Component{
     constructor(props){
