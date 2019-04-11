@@ -7,11 +7,11 @@ module.exports = app => {
     const UserSchema = new Schema({
         userName: {
             type: String,
-            required: true,
+            // required: true,
         },
         password: {
             type: String,
-            required: true,
+            // required: true,
         },
     });
     return mongoose.model('TestModel', UserSchema);

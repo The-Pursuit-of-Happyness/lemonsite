@@ -1,0 +1,82 @@
+.articleContentBox{
+  display: flex;
+  width:100%;
+  height: 100%;
+  .leftBox{
+    flex:2;
+    .headBox{
+      display: flex;
+    }
+    .articleItemBox{
+      padding:10px;
+      border-bottom: 1px solid #f1f1f1;
+      .articleNameBox{
+        display: flex;;
+        justify-content: space-between;
+        align-items: center;
+        .articleName{
+          font-size: 18px;
+          margin-right: 15px;
+        }
+        .tag{
+          display: inline-block;
+          padding: 0 6px;
+          color: #017e66;
+          background-color: rgba(1,126,102,.08);
+          margin-right: 10px;
+          line-height: 28px;
+        }
+    }
+    .infoBox{
+      display: flex;
+      .date{
+        margin-right: 10px;
+      }
+      .icon{
+        margin: 0 3px 0 20px;
+      }
+    }
+
+    }
+  }
+  .rightBox{
+    flex:1;
+    height: 100%;
+    padding: 0 15px;
+    .tagBox{
+      margin-bottom: 20px;
+    }
+    .box{
+      padding:10px;
+      border: 1px solid #c1c1c1;
+    }
+    .updataItemBox{
+      display: flex;
+      justify-content: space-between;
+      padding:6px;
+      align-items:center;
+      border-bottom:1px solid #f1f1f1;
+      .articleName{
+        color: #1890ff;
+        cursor: pointer;
+        flex:1;
+      }
+    }
+  }
+}
+@media screen and (max-width: 990px){
+  .articleContentBox{
+    display: flex;
+    .leftBox{
+      flex:1;
+      .headBox{
+        display: flex;
+      }
+    }
+    .rightBox{
+      display: none;
+    }
+  }
+
+}
+
