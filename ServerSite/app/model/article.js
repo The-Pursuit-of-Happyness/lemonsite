@@ -31,6 +31,9 @@ module.exports = app => {
         },
         keepCount:{ //收藏数量
             type: String,
+        },
+        updateDate:{ //收藏数量
+            type: Date,
         }
     });
     return mongoose.model('Article', ArticleSchema);

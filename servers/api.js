@@ -36,3 +36,11 @@ export  async function getTagList() {
     method: 'GET',
   })
 }
+
+//获取文章详情
+export async function getArticleDetail(id){
+  console.log('id:',id);
+  return request(`/api/article/${id.id}`,{
+    method:'GET',
+  })
+}

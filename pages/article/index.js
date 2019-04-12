@@ -12,21 +12,21 @@ class Article extends React.Component{
         super(props);
         this.state = {
             type:'title',
-            key:''
+            key:'',
+            activeKey:'update'
         };
     }
 
     componentDidMount() {
         const { dispatch }  = this.props;
         const { key, type } = this.state;
-        console.log(' key, type ', key, type );
         dispatch({
             type:'article/getArticleList',
             payload:{
                 type,
                 key,
             }
-        })
+        });
 
         dispatch({
             type:'article/getTagList'
@@ -62,7 +62,7 @@ class Article extends React.Component{
         return (
             <div key={`${index}`} className={'articleItemBox'}>
                 <div className={'articleNameBox'}>
-                    <div ><span className={'articleName'}>{item.articleName}</span><span className={'tag'}>{item.tag}</span></div>
+                    <div ><Link href={`/articleDetails?id=${item.artiidId}`}><a className={'articleName'}>{item.articleName}</a></Link><span className={'tag'}>{item.tag}</span></div>
                     <div><img src={item.imageUrl} style={{width:50,}}/></div>
                 </div>
                 <div className="infoBox">
@@ -80,7 +80,7 @@ class Article extends React.Component{
     }
 
     render(){
-        console.log('this.props:',this.props);
+        console.log('this.props:',this.state);
         const { article } = this.props;
         const articleList = article && article.articleList || [];
         const tagList = article && article.tagList || [];
@@ -109,17 +109,18 @@ class Article extends React.Component{
                        </div>
                    </div>
                    <div>
-                       <Tabs defaultActiveKey="update" onChange={this.onChangeTab}>
+                       <Tabs defaultActiveKey="update" onChange={this.onChangeTab}  onTabClick={(e)=> this.setState({activeKey:e})}>
                            <TabPane tab="最近更新" key="update" className={'box'}>
                                {articleList.map((item,index) => <div className={"updataItemBox"}>
                                    <div className={'articleName'}>{item.articleName}</div>
+                                   <button onClick={()=> this.setState({activeKey: 'Leaderboard-2'})}></button>
                                    <div>
                                        <Icon type={'edit'}/>
                                        <span>{moment(item.date).format('MM-DD')}</span>
                                    </div>
                                </div>)}
                            </TabPane>
-                           <TabPane tab="排行榜" key="Leaderboard" className={'box'}>
+                           <TabPane tab="排行榜1" key="Leaderboard" className={'box'}>
                                {articleList.map((item,index) => <div className={"updataItemBox"} key={`${index}`}>
                                    <div className={'articleName'}>{item.articleName}</div>
                                    <div>
@@ -128,7 +129,8 @@ class Article extends React.Component{
                                    </div>
                                </div>)}
                            </TabPane>
-                       </Tabs>,
+                       </Tabs>
+
                    </div>
                </div>
            </div>

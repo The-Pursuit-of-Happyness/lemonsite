@@ -40,6 +40,28 @@ class ArticleController extends Controller {
             Message: '请求成功',
         };
     }
+
+    async getDetail(){
+        this.ctx.body = {
+            Data: {
+                articleDetails:{
+                    artiidId:'0001',
+                    tag:'正则',
+                    articleName: '常用正则整理',
+                    imageUrl:'https://t1.hddhhn.com/uploads/tu/201612/98/st94.png',
+                    date:'2018-10-23',
+                    readCount:23,
+                    commentCount:34,
+                    likeCount:324,
+                    keepCount:34,
+                    updateDate:new Date(),
+                    author:'guoguo'
+                },
+            },
+            ResultType: 0,
+            Message: '请求成功',
+        };
+    }
 }
 
 module.exports = ArticleController;
