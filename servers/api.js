@@ -3,7 +3,7 @@ import request from '../utils/request';
 
 /**
  * 登录接口
- * @param {*} params 
+ * @param {*} params
  */
 export async function login(params) {
   return request('/api/user/login', {
@@ -17,5 +17,30 @@ export async function login(params) {
 export async function getInfo() {
   return request('/api/user/about', {
     method: 'GET',
+  })
+}
+
+//获取文章列表
+export  async function getArticleList(params) {
+  return request('/api/article/articleList',{
+    method: 'POST',
+    body:{
+      ...params,
+    }
+  })
+}
+
+//获取标签列表
+export  async function getTagList() {
+  return request('/api/tags',{
+    method: 'GET',
+  })
+}
+
+//获取文章详情
+export async function getArticleDetail(id){
+  console.log('id:',id);
+  return request(`/api/article/${id.id}`,{
+    method:'GET',
   })
 }

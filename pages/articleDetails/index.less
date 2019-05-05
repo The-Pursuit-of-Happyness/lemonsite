@@ -1,0 +1,50 @@
+.articleDetailBox{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  .leftBox{
+      flex:2;
+      display:flex;
+    flex-direction: row;
+    .leftBox-left{
+      width: 100px;
+      display:flex;
+      flex-direction: column;
+      height: 150px;
+      font-size: 22px;
+      justify-content: space-around;
+    }
+    .leftBox-right{
+      .tagBox{
+        display: flex;
+        .yuan{
+          padding: 0 6px;
+          color:#f2ae43;
+          background-color: rgba(242,174,67,.25);
+          margin-right: 10px;
+          line-height: 28px;
+          border-radius:12px;
+        }
+        .tag{
+          //display: inline-block;
+          padding: 0 6px;
+          color: #017e66;
+          background-color: rgba(1,126,102,.08);
+          margin-right: 10px;
+          line-height: 28px;
+        }
+
+      }
+      .basicInfoBox{
+        margin-top: 20px;
+        display: flex;
+      }
+      .icon,.date,.updateicon{
+        margin-right: 20px;
+      }
+    }
+  }
+  .rightBox{
+    flex:1;
+  }
+}

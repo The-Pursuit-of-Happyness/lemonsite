@@ -25,6 +25,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "mockjs": "^1.0.1-beta3",
+    "moment": "^2.24.0",
     "mongodb": "^3.2.2",
     "next": "7.0.2",
     "next-redux-wrapper": "^3.0.0-alpha.2",

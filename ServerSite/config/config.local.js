@@ -17,6 +17,10 @@ module.exports = appInfo => {
         credentials: true,
     }
 
+    config.mongoose = {
+        url: 'mongodb://localhost:27017/admin',
+    };
+
     config.security = {
         csrf: {
             enable: false,

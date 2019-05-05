@@ -1,53 +1,144 @@
 import React from "react";
+import moment from 'moment';
 import Link from 'next/link';
+import { Select, Input, Icon, Button, Tag, Tabs } from 'antd';
+import './index.less';
+import WithDva from '../../utils/store';
 
+const Option = Select.Option;
+const TabPane = Tabs.TabPane;
+class Article extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            type:'title',
+            key:'',
+            activeKey:'update'
+        };
+    }
 
-const PostLink = (props) => (
-    <div>
-        <li className={'liStyle'}>
-            <Link as={`/weizhuang`} href={`/item?title=${props.title}&id=${props.id}`}>
-                <a>{props.title}</a>
-            </Link>
-        </li>
-        <style jsx>{`
-          .liStyle {
-            font-size:17px;
-            color:red;
-          }
-        `}
-        </style>
-    </div>
-);
+    componentDidMount() {
+        const { dispatch }  = this.props;
+        const { key, type } = this.state;
+        dispatch({
+            type:'article/getArticleList',
+            payload:{
+                type,
+                key,
+            }
+        });
 
-const Article = () => (
-    <div>
-        <h1>文章列表页面</h1>
-        <div>
-            <Link href="/home">
-                <a>点我跳转home页面</a>
-            </Link>
-        </div>
-        <div>
-            <Link href="/login">
-                <a>点我跳转login页面</a>
-            </Link>
-        </div>
-        <div>
-            <Link href="/updateLog">
-                <a>点我跳转updateLog页面</a>
-            </Link>
-        </div>
-        <div>
-            <Link href="/leetcode">
-                <a>点我跳转leetcode页面</a>
-            </Link>
-        </div>
-        <ul>
-            <PostLink title={"我是路由伪装"} id={'123456'}/>
-        </ul>
-        <img src={'/static/sleep.png'}/>
-    </div>
-);
+        dispatch({
+            type:'article/getTagList'
+        })
+    }
 
-export default Article;
+    selectType = e => {
+        console.log('e:',e);
+        this.setState({
+            type: e
+        })
+    }
+
+    handleOnChangeInput = e => {
+        this.setState({
+            key: e.target.value
+        })
+    }
+
+    searchArticle = () => {
+        const { dispatch }  = this.props;
+        const { key, type } = this.state;
+        dispatch({
+            type:'article/getArticleList',
+            payload:{
+                type,
+                key,
+            }
+        })
+    }
+
+    articleItemBox(item,index){
+        return (
+            <div key={`${index}`} className={'articleItemBox'}>
+                <div className={'articleNameBox'}>
+                    <div ><Link href={`/articleDetails?id=${item.artiidId}`}><a className={'articleName'}>{item.articleName}</a></Link><span className={'tag'}>{item.tag}</span></div>
+                    <div><img src={item.imageUrl} style={{width:50,}}/></div>
+                </div>
+                <div className="infoBox">
+                    <div className={'date'}><span >{moment(item.date).format('YYYY-MM-DD')}</span></div>
+                    <div><Icon type="star" className={"icon"}/>{item.keepCount}</div>
+                        <div><Icon type="heart" className={"icon"}/>{item.likeCount}</div>
+                            <div><Icon type="message"className={"icon"}/>{item.readCount}</div>
+                                <div><Icon type="eye" className={"icon"}/>{item.readCount}</div>
+                </div>
+            </div>
+        )
+    }
+
+    onChangeTab = e => {
+    }
+
+    render(){
+        console.log('this.props:',this.state);
+        const { article } = this.props;
+        const articleList = article && article.articleList || [];
+        const tagList = article && article.tagList || [];
+        return (
+           <div className={'articleContentBox'}>
+               <div className={'leftBox'}>
+                   <div className={'headBox'}>
+                       <Select style={{ width: 150 }} onChange={this.selectType} defaultValue={'按title模糊搜索'}>
+                           <Option value={"title"}>按title模糊搜索</Option>
+                           <Option value={"article"}>按article模糊搜索</Option>
+                       </Select>
+                       <Input placeholder='请输入关键字进行模糊搜索' onChange={this.handleOnChangeInput}/>
+                       <Button onClick={this.searchArticle}>搜索</Button>
+                   </div>
+                   <div className={'articleListBox'}>
+                      {articleList.map((item,index) => this.articleItemBox(item,index))}
+                   </div>
+               </div>
+               <div className={'rightBox'}>
+                   <div className={'tagBox'}>
+                       <h2>相关标签</h2>
+                       <div>
+                           {
+                               tagList.map((tag,index) => <Tag key={`${index}`} color="blue">{tag}</Tag>)
+                           }
+                       </div>
+                   </div>
+                   <div>
+                       <Tabs defaultActiveKey="update" onChange={this.onChangeTab}  onTabClick={(e)=> this.setState({activeKey:e})}>
+                           <TabPane tab="最近更新" key="update" className={'box'}>
+                               {articleList.map((item,index) => <div className={"updataItemBox"}>
+                                   <div className={'articleName'}>{item.articleName}</div>
+                                   <button onClick={()=> this.setState({activeKey: 'Leaderboard-2'})}></button>
+                                   <div>
+                                       <Icon type={'edit'}/>
+                                       <span>{moment(item.date).format('MM-DD')}</span>
+                                   </div>
+                               </div>)}
+                           </TabPane>
+                           <TabPane tab="排行榜1" key="Leaderboard" className={'box'}>
+                               {articleList.map((item,index) => <div className={"updataItemBox"} key={`${index}`}>
+                                   <div className={'articleName'}>{item.articleName}</div>
+                                   <div>
+                                       <Icon type={'eye'}/>
+                                       <span>{item.readCount}</span>
+                                   </div>
+                               </div>)}
+                           </TabPane>
+                       </Tabs>
+
+                   </div>
+               </div>
+           </div>
+        )
+    }
+}
+
+export default WithDva((state) => {
+    return { article:state.article }
+})(Article);
 
