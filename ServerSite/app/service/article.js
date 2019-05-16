@@ -2,16 +2,26 @@
 
 const DaoService = require('./daoService');
 
-class BookService extends DaoService {
+class ArticleService extends DaoService {
   init() {
-    this.model = this.ctx.model.Book;
+    this.model = this.ctx.model.Article;
   }
 
-  async create(book) {
-    super.create(book);
-    const data = {
-      status: 200,
-      data: "保存成功"
+  async create(article) {
+    const id = super.create(article);
+    let data = {};
+    if (id) {
+      data = {
+        status: 200,
+        data: '',
+        message: '文章添加成功',
+      }
+    } else {
+      data = {
+        status: 200,
+        data: '',
+        message: '文章添加失败,请稍后重试',
+      }
     }
     return data;
   }
@@ -30,4 +40,4 @@ class BookService extends DaoService {
   }
 }
 
-module.exports = BookService;
+module.exports = ArticleService;

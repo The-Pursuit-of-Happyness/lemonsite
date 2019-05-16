@@ -7,7 +7,7 @@ const Service = require('egg').Service;
 class DaoService extends Service {
   constructor(ctx) {
     super(ctx);
-    this.defaultSort({ _id: -1 });
+    this.defaultSort = { _id: -1 };
     this.init && this.init();
   }
 

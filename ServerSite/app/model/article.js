@@ -35,6 +35,8 @@ module.exports = app => {
     commentCount: { //评论数
       type: Number,
     },
+    created: Number,
+    updated: Number,
   }, {
     versionKey: false,
   });

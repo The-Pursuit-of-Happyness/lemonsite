@@ -32,7 +32,8 @@ module.exports = appInfo => {
   config.middleware = [];
 
   config.mongoose = {
-    url: 'mongodb://66.42.42.120:27017/admin',
+    // url: 'mongodb://66.42.42.120:27017/admin',
+    url: 'mongodb://localhost:27017/admin',
   };
 
   // add your user config here

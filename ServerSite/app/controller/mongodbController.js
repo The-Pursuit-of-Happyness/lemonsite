@@ -27,8 +27,8 @@ class MongodbController extends Controller {
   }
 
   // 新增数据
-  async crate(ctx) {
-    ctx.body = await this.daoService.crate(ctx.request.body);
+  async create(ctx) {
+    ctx.body = await this.daoService.create(ctx.request.body);
   }
 
   // 删除数据

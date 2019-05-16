@@ -9,11 +9,11 @@ class ArticleController extends MongodbController {
 
   async addArticle(ctx) {
     const article = ctx.request.body;
-    const count = await this.service.article.count({ title: article.title });
-    if (count > 0) {
-      this.fail('文章已存在', 417);
-      return;
-    }
+    // const count = await this.service.article.count({ title: article.title });
+    // if (count > 0) {
+    //   this.fail('文章已存在', 417);
+    //   return;
+    // }
     await super.create(ctx);
   }
 
