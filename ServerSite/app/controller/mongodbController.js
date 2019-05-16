@@ -32,8 +32,21 @@ class MongodbController extends Controller {
   }
 
   // 删除数据
-  async destorey(ctx) {
-    ctx.body = await this.daoService.destorey(ctx.params.id);
+  async destory(ctx) {
+    let result = await this.daoService.destory(ctx.query._id);
+    if (result.deletedCount) {
+      ctx.body = {
+        status: 204,
+        data: '',
+        message: '删除成功',
+      }
+    } else {
+      ctx.body = {
+        status: 400,
+        data: '',
+        message: '删除失败，请稍后重试',
+      }
+    }
   }
 
   // 请求成功

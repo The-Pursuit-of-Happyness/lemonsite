@@ -55,7 +55,7 @@ class DaoService extends Service {
 
   // 删除数据
   async destory(_id) {
-    return await this.model.remve({ _id });
+    return await this.model.remove({ _id });
   }
 
   // 计算数量

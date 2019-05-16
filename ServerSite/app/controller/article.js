@@ -18,7 +18,16 @@ class ArticleController extends MongodbController {
   }
 
   async deleteArticle(ctx) {
-    await super.destorey(ctx);
+    const count = await this.service.article.count({ _id: ctx.query._id });
+    if (count) {
+      await super.destory(ctx);
+    } else {
+      ctx.body = {
+        status: 400,
+        data: '',
+        message: '文章不存在',
+      }
+    }
   }
 
   async searchArticle(ctx) {

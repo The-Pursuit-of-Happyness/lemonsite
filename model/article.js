@@ -3,14 +3,17 @@ import * as restService from "../servers/api"
 const model = {
   namespace: 'article',
   state: {
-    articleinfo: {},
     articleList: [],
     tagList: [],
   },
   effects: {
     * addArticle({ payload }, { call, put }) {
       const response = yield call(restService.addArticle, payload);
-      yield put({ type: 'addresult', payload: response.Data });
+      yield put({ type: 'result', payload: response });
+    },
+    * deleteArticle({ payload }, { call, put }) {
+      const response = yield call(restService.deleteArticle, payload);
+      yield put({ type: 'result', payload: response });
     },
     * getArticleList({ payload }, { call, put }) {
       const response = yield call(restService.getArticleList, payload);
@@ -23,12 +26,16 @@ const model = {
     }
   },
   reducers: {
-    addresult(state, action) {
+    result(state, action) {
+      // return {
+      //   ...state,
+      //   articleinfo: action.payload.articleinfo
+      // }
       return {
-        ...state,
-        articleinfo: action.payload.articleinfo
+        ...state
       }
     },
+
     articlelist(state, action) {
       return {
         ...state,

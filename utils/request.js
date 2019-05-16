@@ -35,6 +35,15 @@ function checkStatus(response) {
   throw error;
 }
 
+const parseQuery = (obj) => {
+  let str = ''
+  for (let key in obj) {
+    const value = typeof obj[key] !== 'string' ? JSON.stringify(obj[key]) : obj[key]
+    str += '&' + key + '=' + value
+  }
+  return str.substr(1)
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -66,6 +75,13 @@ export default function request(url, options, ) {
         ...newOptions.headers,
       };
     }
+  } else if (newOptions.method === 'GET') {
+    newOptions.headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+      ...newOptions.headers,
+    };
+    url += '?' + parseQuery(newOptions.params)
   }
   return (
     fetch(url, newOptions)

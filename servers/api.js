@@ -30,6 +30,16 @@ export async function addArticle(params) {
   })
 }
 
+// 删除文章
+export async function deleteArticle(params) {
+  return request('/api/article/deletearticle', {
+    method: 'GET',
+    params: {
+      ...params
+    }
+  })
+}
+
 //获取文章列表
 export async function getArticleList(params) {
   return request('/api/article/articleList', {

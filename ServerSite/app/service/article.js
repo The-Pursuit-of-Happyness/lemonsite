@@ -18,7 +18,7 @@ class ArticleService extends DaoService {
       }
     } else {
       data = {
-        status: 200,
+        status: 400,
         data: '',
         message: '文章添加失败,请稍后重试',
       }

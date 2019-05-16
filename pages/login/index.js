@@ -32,12 +32,12 @@ class Login extends Component{
         this.props.dispatch({
           type: 'article/addArticle',
           payload: {
-            authorId: '9528',
+            authorId: '9599',
             tag: '前端',
             articleName: 'vue 必知必会',
             articleType: '1',
             articleContent: "哈哈哈，噢噢噢噢哦哦哈哈哈我是文章内容哦，点我点我。。。。",
-            source: '原创',
+            source: '原创文章',
             createtime: '201905014',
             lastModification: '201905015',
             pageView: 127, //阅读量
@@ -49,6 +49,15 @@ class Login extends Component{
             commentCount: 20,
           }
         })
+      }
+
+      deletearticle =()=>{
+          this.props.dispatch({
+              type:'article/deleteArticle',
+              payload:{
+                  _id:"5cdd308ff2bd3e35dc79a215",
+              }
+          })
       }
 
     // static async getInitialProps(props) {
@@ -75,6 +84,7 @@ class Login extends Component{
             <Input type="password" onChange={this.inputPwd}></Input>
             <Button onClick={this.submit}>提交</Button>
             <Button onClick={this.addarticle}>添加文章</Button>
+            <Button onClick={this.deletearticle}>删除文章</Button>
 
             <p>{userInfo&&userInfo.name? userInfo.name:'' }</p>
             <p>{userInfo&&userInfo.age? userInfo.age:'' }</p>
