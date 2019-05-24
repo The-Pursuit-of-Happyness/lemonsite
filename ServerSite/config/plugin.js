@@ -9,3 +9,7 @@ exports.mongoose = {
   enable: true,
   package: 'egg-mongoose',
 };
+exports.swagger2 = {
+  enable: true,
+  package: 'egg-swagger2',
+};

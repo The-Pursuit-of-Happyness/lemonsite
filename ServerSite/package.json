@@ -11,6 +11,7 @@
     "egg-cors": "^2.2.0",
     "egg-mongoose": "^3.1.1",
     "egg-scripts": "^2.11.0",
+    "egg-swagger2": "^1.0.4",
     "md5": "^2.2.1"
   },
   "devDependencies": {
