@@ -2,7 +2,6 @@
 /**
  *  mongodb 数据操作控制器
  */
-
 const Controller = require('egg').Controller;
 
 class MongodbController extends Controller {
@@ -18,7 +17,21 @@ class MongodbController extends Controller {
 
   // 根据id查找某个数据
   async show(ctx) {
-    ctx.body = await this.daoService.index(ctx.params.id);
+    // ctx.body = await this.daoService.show(ctx.params.id);
+    const detail = await this.daoService.show(ctx.params.id);
+    if (detail) {
+      ctx.body = {
+        status: 200,
+        data: detail,
+        message: '数据获取成功'
+      };
+    } else {
+      ctx.body = {
+        status: 400,
+        data: detail,
+        message: '数据获取失败'
+      };
+    }
   }
 
   // 修改/更新数据
@@ -33,7 +46,7 @@ class MongodbController extends Controller {
 
   // 删除数据
   async destory(ctx) {
-    let result = await this.daoService.destory(ctx.query._id);
+    let result = await this.daoService.destory(ctx.params.id);
     if (result.deletedCount) {
       ctx.body = {
         status: 204,

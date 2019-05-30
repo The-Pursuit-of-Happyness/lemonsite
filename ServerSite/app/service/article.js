@@ -26,18 +26,9 @@ class ArticleService extends DaoService {
     return data;
   }
 
-  async show(name) {
-    const queries = {
-      name
-    };
-
-    const detail = await this.model.findOne(queries);
-    const data = {
-      status: 200,
-      data: detail
-    }
-    return data;
+  // 计算数量
+  async count(query) {
+    return await super.count(query);
   }
 }
-
 module.exports = ArticleService;

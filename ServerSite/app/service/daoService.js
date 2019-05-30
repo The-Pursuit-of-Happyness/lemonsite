@@ -29,7 +29,7 @@ class DaoService extends Service {
 
   // 分页查找
   async index(pagin, selectFileds) {
-    return await this.findByPage(this.quireCriteria(this.ctx.request.body), pagin, selectFileds, this.sort(this.ctx.request.body));
+    return await this.findByPage(this.queryCriteria(this.ctx.request.body), pagin, selectFileds, this.sort(this.ctx.request.body));
   }
 
   // 根据id 查找
@@ -60,7 +60,7 @@ class DaoService extends Service {
 
   // 计算数量
   async count(query) {
-    return await this.model.count(query);
+    return await this.model.countDocuments(query);
   }
 
   // 条件查找

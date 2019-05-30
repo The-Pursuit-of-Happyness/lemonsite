@@ -17,8 +17,29 @@ class ArticleController extends MongodbController {
     await super.create(ctx);
   }
 
+  /**
+   * 根据文章id查看详情
+   * @param {id} ctx 
+   */
+  async getArticleDetial(ctx) {
+    const count = await this.service.article.count({ _id: ctx.params.id });
+    if (count) {
+      await super.show(ctx);
+    } else {
+      ctx.body = {
+        status: 400,
+        data: '',
+        message: '文章不存在',
+      }
+    }
+  }
+
+  /**
+   * 删除文章
+   * @param {id} ctx 
+   */
   async deleteArticle(ctx) {
-    const count = await this.service.article.count({ _id: ctx.query._id });
+    const count = await this.service.article.count({ _id: ctx.params.id });
     if (count) {
       await super.destory(ctx);
     } else {
@@ -68,28 +89,6 @@ class ArticleController extends MongodbController {
         //     likeCount:324,
         //     keepCount:34,
         // }],
-      },
-      ResultType: 0,
-      Message: '请求成功',
-    };
-  }
-
-  async getDetail() {
-    this.ctx.body = {
-      Data: {
-        articleDetails: {
-          artiidId: '0001',
-          tag: '正则',
-          articleName: '常用正则整理',
-          imageUrl: 'https://t1.hddhhn.com/uploads/tu/201612/98/st94.png',
-          date: '2018-10-23',
-          readCount: 23,
-          commentCount: 34,
-          likeCount: 324,
-          keepCount: 34,
-          updateDate: new Date(),
-          author: 'guoguo'
-        },
       },
       ResultType: 0,
       Message: '请求成功',
