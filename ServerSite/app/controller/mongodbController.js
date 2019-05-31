@@ -20,23 +20,36 @@ class MongodbController extends Controller {
     // ctx.body = await this.daoService.show(ctx.params.id);
     const detail = await this.daoService.show(ctx.params.id);
     if (detail) {
-      ctx.body = {
+      this.success({
         status: 200,
         data: detail,
         message: '数据获取成功'
-      };
+      })
     } else {
-      ctx.body = {
+      this.fail({
         status: 400,
         data: detail,
         message: '数据获取失败'
-      };
+      })
     }
   }
 
   // 修改/更新数据
   async update(ctx) {
-    ctx.body = await this.daoService.update(ctx.params.id, ctx.request.body);
+    let result = await this.daoService.update(ctx.request.body.id, ctx.request.body);
+    if (result._id) {
+      this.success({
+        status: 200,
+        data: result,
+        message: '更新数据成功'
+      })
+    } else {
+      this.fail({
+        status: 400,
+        data: '',
+        message: '数据更新失败'
+      })
+    }
   }
 
   // 新增数据

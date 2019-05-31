@@ -7,6 +7,7 @@ class ArticleController extends MongodbController {
     this.daoService = this.service.article;
   }
 
+  // 添加文章
   async addArticle(ctx) {
     const article = ctx.request.body;
     // const count = await this.service.article.count({ title: article.title });
@@ -15,6 +16,20 @@ class ArticleController extends MongodbController {
     //   return;
     // }
     await super.create(ctx);
+  }
+
+  /**
+   * 修改更新文章
+   * @param {*} ctx
+   * @memberof ArticleController
+   */
+  async updateArticle(ctx) {
+    const count = await this.service.article.count({ _id: ctx.request.body.id });
+    if (count) {
+      await super.update(ctx);
+    } else {
+      super.fail({ status: 400, message: '文章不存在' });
+    }
   }
 
   /**
