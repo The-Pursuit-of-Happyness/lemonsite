@@ -7,7 +7,6 @@ module.exports = app => {
   const { router, controller, swagger } = app;
   router.get('/api/user/about', controller.home.about);
   router.get('/api/article/searcharticle', controller.article.searchArticle);
-  router.post('/api/article/articleList', controller.article.getList);
   router.get('/api/tags', controller.tag.getTagList);
 
 
@@ -261,6 +260,121 @@ module.exports = app => {
                 token: {
                   type: 'string',
                   description: 'token',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // 根据条件搜索文章列表
+  router.post('/api/article/articleList', controller.article.getArticleList);
+  swagger.post('/api/article/articleList', {
+    tags: ['文章'],
+    summary: '文章列表',
+    description: '根据条件查询文章列表',
+    parameters: [{ in: 'body',
+      name: 'body',
+      description: '支持分页获取全部文章列表，根据文章名称模糊搜索，根据文章内容搜索',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['pageIndex', 'pageSize', 'type', 'value'],
+        properties: {
+          pageIndex: {
+            type: 'int32',
+            description: '当前查看的分页数',
+          },
+          pageSize: {
+            type: 'int32',
+            description: '分页大小',
+          },
+          type: {
+            type: 'string',
+            description: '查询类型  all 全部文章列表 title  根据标题模糊搜索 content 文章内容搜索'
+          },
+          value: {
+            type: 'string',
+            description: '查询的数据'
+          }
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'object',
+              description: 'data',
+              properties: {
+                articleContent: {
+                  type: 'string',
+                  description: '文章内容',
+                },
+                articleName: {
+                  type: 'string',
+                  description: '文章标题'
+                },
+                articleType: {
+                  type: 'int32',
+                  description: '文章类别',
+                },
+                artiidId: {
+                  type: 'string',
+                  description: '文章id'
+                },
+                authorId: {
+                  type: 'string',
+                  description: '作者id'
+                },
+                comment: {
+                  type: 'int32',
+                  description: '评论数'
+                },
+                commentCount: {
+                  type: 'int32',
+                  description: '评论数'
+                },
+                createtime: {
+                  type: 'date',
+                  description: '创建时间'
+                },
+                imageUrl: {
+                  type: 'string',
+                  description: '图片url'
+                },
+                lastModification: {
+                  type: 'string',
+                  description: '作者id'
+                },
+                likeNum: {
+                  type: 'int32',
+                  description: '喜欢数量'
+                },
+                linkicon: {
+                  type: 'string',
+                  description: '链接url'
+                },
+                pageView: {
+                  type: 'int32',
+                  description: '浏览量'
+                },
+                source: {
+                  type: 'string',
+                  description: '文章来源'
+                },
+                tag: {
+                  type: 'string',
+                  description: '标签'
                 },
               },
             },

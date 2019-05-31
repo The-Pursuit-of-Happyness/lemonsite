@@ -13,3 +13,8 @@ exports.swagger2 = {
   enable: true,
   package: 'egg-swagger2',
 };
+
+exports.validate = {
+  enable: true,
+  package: 'egg-validate',
+};

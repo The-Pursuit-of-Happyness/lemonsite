@@ -64,10 +64,7 @@ class MongodbController extends Controller {
 
   // 请求成功
   success(result) {
-    this.ctx.body = {
-      success: true,
-      result,
-    }
+    this.ctx.body = {...result };
   }
 
   // 请求失败
@@ -75,7 +72,7 @@ class MongodbController extends Controller {
     this.ctx.status = status;
     this.ctx.body = {
       success: false,
-      message
+      ...message
     };
   }
 };

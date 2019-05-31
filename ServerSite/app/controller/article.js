@@ -56,43 +56,52 @@ class ArticleController extends MongodbController {
     ctx.body = article;
   }
 
-  async getList() {
-    const { type, key } = this.ctx.request.body;
-    let param = null;
-    if (type === 'title' && key) {
-      param = { tag: key };
-    } else if (type === 'article' && key) {
-      param = { articleName: /^\`${key}`\// };
+  /**
+   * 分页查询文章
+   * @param {pageIndex,pageSize,type,value} ctx 
+   */
+  async getArticleList(ctx) {
+    var rule = {
+      pageIndex: 'int',
+      pageSize: 'int',
+      type: ["all", "title", "content"], // all 全部 ， title :标题 ,content:'文章内容'
+      value: {
+        type: 'string',
+        required: false,
+      }
     }
-    const articleList = await this.ctx.model.Article.find(param);
-    this.ctx.body = {
-      Data: {
-        articleList,
-        // articleList:[{
-        //     artiidId:'0001',
-        //     tag:'正则',
-        //     articleName: '常用正则整理',
-        //     imageUrl:'https://t1.hddhhn.com/uploads/tu/201612/98/st94.png',
-        //     date:'2018-10-23',
-        //     readCount:23,
-        //     commentCount:34,
-        //     likeCount:324,
-        //     keepCount:34,
-        // },{
-        //     artiidId:'0041',
-        //     tag:'js',
-        //     articleName: '前端有趣技巧网站',
-        //     imageUrl:'https://t1.hddhhn.com/uploads/tu/201612/98/st94.png',
-        //     date:'2018-12-12',
-        //     readCount:23,
-        //     commentCount:34,
-        //     likeCount:324,
-        //     keepCount:34,
-        // }],
-      },
-      ResultType: 0,
-      Message: '请求成功',
-    };
+    let result = this.app.validator.validate(rule, ctx.request.body);
+    if (result) {
+      ctx.body = {
+        data: [],
+        status: 400,
+        message: "参数错误:" + result.map(item =>
+          item.field + ": " + item.message
+        )
+      }
+    } else {
+      const { type } = ctx.request.body;
+      let result;
+      // 获取全部文章
+      if (type == 'all') {
+        result = await this.service.article.index(ctx.request.body);
+      } else if (type == 'title') {
+        // 根据标题查询
+        result = await this.service.article.index({ likes: { articleName: ctx.request.body.value, }, ...ctx.request.body });
+      } else if (type == 'content') {
+        // 根据内容查询
+        result = await this.service.article.index({ likes: { articleContent: ctx.request.body.value, }, ...ctx.request.body });
+      }
+      if (result.count >= 0) {
+        super.success({
+          data: result,
+          status: 200,
+          message: '获取成功'
+        })
+      } else {
+        super.fail({ status: 400, message: '获取失败' });
+      }
+    }
   }
 }
 

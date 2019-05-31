@@ -28,8 +28,8 @@ class DaoService extends Service {
   }
 
   // 分页查找
-  async index(pagin, selectFileds) {
-    return await this.findByPage(this.queryCriteria(this.ctx.request.body), pagin, selectFileds, this.sort(this.ctx.request.body));
+  async index(query, selectFileds) {
+    return await this.findByPage(this.queryCriteria(query), query, selectFileds, this.sort(query));
   }
 
   // 根据id 查找
@@ -82,7 +82,7 @@ class DaoService extends Service {
     const pageSize = Number(pagin.pageSize || 10);
     const from = (page - 1) * pageSize;
 
-    const content = await this.model.find(params)
+    const items = await this.model.find(params)
       .skip(from)
       .limit(pageSize)
       .select(selectFileds)
@@ -92,7 +92,7 @@ class DaoService extends Service {
       count,
       page,
       pageSize,
-      content,
+      items,
     };
     return result;
   }

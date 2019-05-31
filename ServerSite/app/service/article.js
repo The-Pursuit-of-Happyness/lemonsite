@@ -30,5 +30,10 @@ class ArticleService extends DaoService {
   async count(query) {
     return await super.count(query);
   }
+
+  // 查询
+  async index(query) {
+    return await super.index(query);
+  }
 }
 module.exports = ArticleService;

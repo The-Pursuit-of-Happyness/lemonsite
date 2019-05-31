@@ -43,6 +43,13 @@ module.exports = appInfo => {
     // url: 'mongodb://localhost:27017/admin',
   };
 
+  // validate
+  config.validate = {
+    // convert:false,
+    // validateRoot:false,
+  };
+
+  // swagger
   config.swagger2 = {
     enable: true,
     base: {
