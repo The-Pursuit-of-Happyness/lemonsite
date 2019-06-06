@@ -9,8 +9,6 @@ module.exports = app => {
   router.get('/api/article/searcharticle', controller.article.searchArticle);
   router.get('/api/tags', controller.tag.getTagList);
 
-
-
   // 用户登录
   router.post('/api/user/login', controller.home.login);
   swagger.post('/api/user/login', {
@@ -55,6 +53,170 @@ module.exports = app => {
                   description: 'token',
                 },
               },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // 新增评论
+  router.post('/api/comment/addComment', controller.comment.addCommit);
+  swagger.post('/api/comment/addComment', {
+    tags: ['评论'],
+    summary: '新增评论',
+    description: '新增评论',
+    parameters: [{ in: 'body',
+      name: 'body',
+      description: '新增评论',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['owner_user_id', 'articleId', 'commentType', 'content'],
+        properties: {
+          owner_user_id: {
+            type: 'string',
+            description: '评论者id',
+          },
+          articleId: {
+            type: 'string',
+            description: '文章id'
+          },
+          commentType: {
+            type: 'string',
+            description: '评论类型  addcomment 评论 reply 回复',
+          },
+          content: {
+            type: 'string',
+            description: '评论内容'
+          },
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'object',
+              description: 'data',
+              properties: {
+                _id: {
+                  type: 'string',
+                  description: '评论id',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // 回复评论
+  router.post('/api/comment/replyComment', controller.comment.replyCommit);
+  swagger.post('/api/comment/replyComment', {
+    tags: ['评论'],
+    summary: '回复评论',
+    description: '回复评论',
+    parameters: [{ in: 'body',
+      name: 'body',
+      description: '回复评论',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['owner_user_id', 'target_user_id', 'articleId', 'commentType', 'content'],
+        properties: {
+          owner_user_id: {
+            type: 'string',
+            description: '回复者id',
+          },
+          target_user_id: {
+            type: 'string',
+            description: '回复对象',
+          },
+          articleId: {
+            type: 'string',
+            description: '文章id'
+          },
+          commentType: {
+            type: 'string',
+            description: '评论类型  addcomment 评论 reply 回复',
+          },
+          content: {
+            type: 'string',
+            description: '回复内容'
+          },
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'object',
+              description: 'data',
+              properties: {
+                _id: {
+                  type: 'string',
+                  description: '评论id',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // 删除评论
+  router.delete('/api/comment/:id', controller.comment.deleteComment);
+  swagger.delete('/api/comment/{id}', {
+    tags: ['评论'],
+    summary: '根据id删除评论',
+    description: '删除评论',
+    parameters: [{ in: 'path',
+      name: 'id',
+      description: '删除评论',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['id'],
+        properties: {
+          id: {
+            type: 'string',
+            description: '评论id',
+          },
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'object',
+              description: 'data',
+              properties: {},
             },
           },
         },

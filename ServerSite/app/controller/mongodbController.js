@@ -34,6 +34,11 @@ class MongodbController extends Controller {
     }
   }
 
+  // 计算数量
+  async count(query) {
+    return await this.daoService.count(query);
+  }
+
   // 修改/更新数据
   async update(ctx) {
     let result = await this.daoService.update(ctx.request.body.id, ctx.request.body);

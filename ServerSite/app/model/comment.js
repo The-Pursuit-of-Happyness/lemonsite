@@ -6,16 +6,23 @@ module.exports = app => {
   const Mixed = mongoose.Schema.Types.Mixed;
   const commentSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    createrId: {
+    owner_user_id: {
       type: String,
       required: true,
     },
+    target_user_id: String,
+    likeCount: Number,
+    articleId: {
+      type: String,
+      require: true,
+    },
+    parent_id: String,
     commentType: {
       type: String,
       required: true,
     },
-    createTime: {
-      type: String,
+    created: {
+      type: Date,
       required: true,
     },
     content: {
@@ -25,5 +32,5 @@ module.exports = app => {
   }, {
     versionKey: false,
   });
-  return mongoose.model('comment', commentSchema);
+  return mongoose.model('comments', commentSchema);
 }
