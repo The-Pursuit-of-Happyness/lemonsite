@@ -14,10 +14,6 @@ module.exports = app => {
       type: String,
       required: true,
     },
-    colecteTime: {
-      type: String,
-      required: true,
-    },
   }, {
     versionKey: false,
   });
