@@ -78,9 +78,9 @@ class DaoService extends Service {
   // 分页查找
   async findByPage(params, pagin = {}, selectFileds, sort = this.defaultSort) {
     const count = await this.count(params);
-    const page = Number(pagin.page || 1);
+    const pageIndex = Number(pagin.pageIndex || 1);
     const pageSize = Number(pagin.pageSize || 10);
-    const from = (page - 1) * pageSize;
+    const from = (pageIndex - 1) * pageSize;
 
     const items = await this.model.find(params)
       .skip(from)
@@ -90,7 +90,7 @@ class DaoService extends Service {
 
     const result = {
       count,
-      page,
+      pageIndex,
       pageSize,
       items,
     };

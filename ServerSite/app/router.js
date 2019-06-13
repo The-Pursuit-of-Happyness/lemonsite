@@ -9,6 +9,7 @@ module.exports = app => {
   router.get('/api/article/searcharticle', controller.article.searchArticle);
   router.get('/api/tags', controller.tag.getTagList);
 
+
   // 用户登录
   router.post('/api/user/login', controller.home.login);
   swagger.post('/api/user/login', {
@@ -224,6 +225,176 @@ module.exports = app => {
     },
   });
 
+  // 获取文章的评论列表
+  router.post('/api/comment/getCommentList', controller.comment.getCommentList);
+  swagger.post('/api/comment/getCommentList', {
+    tags: ['评论'],
+    summary: '文章评论列表',
+    description: '根据文章id分页查找评论',
+    parameters: [{ in: 'body',
+      name: 'body',
+      description: '根据文章id分页查找评论',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['pageIndex', 'pageSize', 'articleId'],
+        properties: {
+          pageIndex: {
+            type: 'integer',
+            description: '分页页码',
+          },
+          pageSize: {
+            type: 'integer',
+            description: '分页大小'
+          },
+          articleId: {
+            type: 'string',
+            description: '文章id',
+          },
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'data',
+              description: 'data',
+              properties: {
+                _id: {
+                  type: 'string',
+                  description: '评论id',
+                },
+                owner_user_id: {
+                  type: 'string',
+                  description: '回复者id'
+                },
+                target_user_id: {
+                  type: 'string',
+                  description: '回复对象id'
+                },
+                articleId: {
+                  type: 'string',
+                  description: '文章id'
+                },
+                parent_id: {
+                  type: 'string',
+                  description: '父评论id'
+                },
+                commentType: {
+                  type: 'string',
+                  description: '评论类型，添加评论 \ 回复'
+                },
+                content: {
+                  type: 'string',
+                  description: '评论内容'
+                },
+                created: {
+                  type: 'date-time',
+                  description: '创建时间'
+                },
+                subcommentlist: {
+                  type: 'array',
+                  description: '子评论列表（默认加载5条，显示更多可以根据父id查找）'
+                }
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // 根据父id获取子评论列表
+  router.post('/api/comment/getSubCommentList', controller.comment.getSubCommentList);
+  swagger.post('/api/comment/getSubCommentList', {
+    tags: ['评论'],
+    summary: '查找子评论',
+    description: '根据父评论id分页查找子评论',
+    parameters: [{ in: 'body',
+      name: 'body',
+      description: '根据父评论id分页查找子评论',
+      required: true,
+      schema: {
+        type: 'object',
+        required: ['pageIndex', 'pageSize', 'parentCommentId'],
+        properties: {
+          pageIndex: {
+            type: 'integer',
+            description: '分页页码',
+          },
+          pageSize: {
+            type: 'integer',
+            description: '分页大小'
+          },
+          parentCommentId: {
+            type: 'string',
+            description: '父评论id',
+          },
+        },
+      },
+    }, ],
+    responses: {
+      200: {
+        description: 'SUCCEED',
+        schema: {
+          type: 'object',
+          properties: {
+            status: {
+              type: 'string',
+              description: 'status',
+            },
+            data: {
+              type: 'data',
+              description: 'data',
+              properties: {
+                _id: {
+                  type: 'string',
+                  description: '评论id',
+                },
+                owner_user_id: {
+                  type: 'string',
+                  description: '回复者id'
+                },
+                target_user_id: {
+                  type: 'string',
+                  description: '回复对象id'
+                },
+                articleId: {
+                  type: 'string',
+                  description: '文章id'
+                },
+                parent_id: {
+                  type: 'string',
+                  description: '父评论id'
+                },
+                commentType: {
+                  type: 'string',
+                  description: '评论类型，添加评论 \ 回复'
+                },
+                content: {
+                  type: 'string',
+                  description: '评论内容'
+                },
+                created: {
+                  type: 'date-time',
+                  description: '创建时间'
+                }
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
   // 新增文章
   router.post('/api/article/addarticle', controller.article.addArticle);
   swagger.post('/api/article/addarticle', {
@@ -247,7 +418,7 @@ module.exports = app => {
             description: '文章标题'
           },
           articleType: {
-            type: 'int32',
+            type: 'integer',
             description: '文章类别',
           },
           artiidId: {
@@ -259,15 +430,15 @@ module.exports = app => {
             description: '作者id'
           },
           comment: {
-            type: 'int32',
+            type: 'integer',
             description: '评论数'
           },
           commentCount: {
-            type: 'int32',
+            type: 'integer',
             description: '评论数'
           },
           createtime: {
-            type: 'date',
+            type: 'date-time',
             description: '创建时间'
           },
           imageUrl: {
@@ -279,7 +450,7 @@ module.exports = app => {
             description: '作者id'
           },
           likeNum: {
-            type: 'int32',
+            type: 'integer',
             description: '喜欢数量'
           },
           linkicon: {
@@ -287,7 +458,7 @@ module.exports = app => {
             description: '链接url'
           },
           pageView: {
-            type: 'int32',
+            type: 'integer',
             description: '浏览量'
           },
           source: {
@@ -391,7 +562,7 @@ module.exports = app => {
             description: '文章标题'
           },
           articleType: {
-            type: 'int32',
+            type: 'integer',
             description: '文章类别',
           },
           artiidId: {
@@ -403,15 +574,15 @@ module.exports = app => {
             description: '作者id'
           },
           comment: {
-            type: 'int32',
+            type: 'integer',
             description: '评论数'
           },
           commentCount: {
-            type: 'int32',
+            type: 'integer',
             description: '评论数'
           },
           createtime: {
-            type: 'date',
+            type: 'date-time',
             description: '创建时间'
           },
           imageUrl: {
@@ -423,7 +594,7 @@ module.exports = app => {
             description: '作者id'
           },
           likeNum: {
-            type: 'int32',
+            type: 'integer',
             description: '喜欢数量'
           },
           linkicon: {
@@ -431,7 +602,7 @@ module.exports = app => {
             description: '链接url'
           },
           pageView: {
-            type: 'int32',
+            type: 'integer',
             description: '浏览量'
           },
           source: {
@@ -557,11 +728,11 @@ module.exports = app => {
         required: ['pageIndex', 'pageSize', 'type', 'value'],
         properties: {
           pageIndex: {
-            type: 'int32',
+            type: 'integer',
             description: '当前查看的分页数',
           },
           pageSize: {
-            type: 'int32',
+            type: 'integer',
             description: '分页大小',
           },
           type: {
@@ -598,7 +769,7 @@ module.exports = app => {
                   description: '文章标题'
                 },
                 articleType: {
-                  type: 'int32',
+                  type: 'integer',
                   description: '文章类别',
                 },
                 artiidId: {
@@ -610,15 +781,15 @@ module.exports = app => {
                   description: '作者id'
                 },
                 comment: {
-                  type: 'int32',
+                  type: 'integer',
                   description: '评论数'
                 },
                 commentCount: {
-                  type: 'int32',
+                  type: 'integer',
                   description: '评论数'
                 },
                 createtime: {
-                  type: 'date',
+                  type: 'date-time',
                   description: '创建时间'
                 },
                 imageUrl: {
@@ -630,7 +801,7 @@ module.exports = app => {
                   description: '作者id'
                 },
                 likeNum: {
-                  type: 'int32',
+                  type: 'integer',
                   description: '喜欢数量'
                 },
                 linkicon: {
@@ -638,7 +809,7 @@ module.exports = app => {
                   description: '链接url'
                 },
                 pageView: {
-                  type: 'int32',
+                  type: 'integer',
                   description: '浏览量'
                 },
                 source: {
