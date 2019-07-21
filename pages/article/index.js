@@ -1,7 +1,7 @@
 import React from "react";
 import moment from 'moment';
 import Link from 'next/link';
-import { Select, Input, Icon, Button, Tag, Tabs } from 'antd';
+import { Select, Input, Icon, Button, Tag, Tabs,Upload, } from 'antd';
 import './index.less';
 import WithDva from '../../utils/store';
 
@@ -11,6 +11,7 @@ class Article extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            fileList: [],
             type:'title',
             key:'',
             activeKey:'update'
@@ -32,7 +33,14 @@ class Article extends React.Component{
             type:'article/getTagList'
         })
     }
-
+    // 导入Excel
+    importExcel = file => {
+        const { dispatch }  = this.props;
+        dispatch({
+        type: 'article/importExcel',
+        payload: file,
+        });
+    }
     selectType = e => {
         console.log('e:',e);
         this.setState({
@@ -84,6 +92,17 @@ class Article extends React.Component{
         const { article } = this.props;
         const articleList = article && article.articleList || [];
         const tagList = article && article.tagList || [];
+        let thiz = this;
+         const uploadconfig = {
+      onChange(info) {          
+        const formData = new FormData();
+        formData.append('fileImport', info.file.originFileObj);
+        thiz.importExcel(formData);
+      },
+      name: 'file',
+      multiple: false,
+      accept:".xls, .xlsx"
+    };
         return (
            <div className={'articleContentBox'}>
                <div className={'leftBox'}>
@@ -99,6 +118,9 @@ class Article extends React.Component{
                       {articleList.map((item,index) => this.articleItemBox(item,index))}
                    </div>
                </div>
+                <Upload {...uploadconfig} fileList={this.state.fileList}>
+                    <Button icon="import">导入Excel</Button>
+                  </Upload>
                <div className={'rightBox'}>
                    <div className={'tagBox'}>
                        <h2>相关标签</h2>
